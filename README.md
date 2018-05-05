@@ -34,6 +34,15 @@ ERROR in {project_name}/image.jpg
 ```
 Please run this command : `brew install libpng`. See issue [here](https://github.com/tcoopman/image-webpack-loader/issues/51).
 
+Other Known Issues
+==================
+
+* If you got error with npm `5.3.0`, then upgrade npm to `5.4.0`. See issue [npm/npm#17781](https://github.com/npm/npm/issues/17781)
+
+* When you first install serialport it will compile against the version of Node.js on your machine, not against the Node.js runtime bundled with Electron. https://github.com/node-serialport/node-serialport#electron
+https://github.com/node-serialport/node-serialport/issues/901#issuecomment-289036909
+https://github.com/node-serialport/node-serialport/issues/1083
+
 ### Create a new project and install npm packages
 ```bash
 # clone via ssh

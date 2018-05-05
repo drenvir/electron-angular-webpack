@@ -1,4 +1,10 @@
 <div class="head">
     <img src="../assets/images/logo.png" alt="Logo">
-    <h1>It works</h1>
+    <h1>It works!</h1>
+    <div class="tag-list">
+        <a *ngFor="let port of ports" class="tag-default tag-pill">
+           {{ port.comName }}
+        </a>
+    </div>
+    <div class="span">Data: {{data}}</div>
 </div>

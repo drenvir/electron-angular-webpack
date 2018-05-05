@@ -140,6 +140,9 @@ let webpackConfig = {
         new Webpack.ContextReplacementPlugin(/angular([\\\/])core([\\\/])/, path.resolve(__dirname, './src')),
         new CopyWebpackPlugin(['./package.json']),
     ],
+    externals: {
+        serialport: "require('serialport')"
+    }
 };
 
 // UglifyJs and clean output folder only for prod
