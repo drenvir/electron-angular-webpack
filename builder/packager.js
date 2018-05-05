@@ -28,7 +28,7 @@ switch (process.env.NODE_OS) {
 			console.log('Successfully removed ./mac_packager/');
 		}
 		console.log('Creating mac packager...');
-		exec("cross-env NODE_ENV=prod webpack && electron-packager dist --overwrite --platform=" + spec['platform']['mac'] + " --arch=" + spec['arch']['64'] + " --prune=true --out=mac_packager --icon=builder/icons/mac/icon.icns", (error) => {
+		exec("cross-env NODE_ENV=prod webpack && electron-packager dist --overwrite --platform=" + spec['platform']['mac'] + " --arch=" + spec['arch']['64'] + " --prune --asar --out=mac_packager --icon=builder/icons/mac/icon.icns", (error) => {
 			if (!error) {
 				console.log('Successfully created packager at ./mac_packager/');
 			} else {
@@ -43,7 +43,7 @@ switch (process.env.NODE_OS) {
 			console.log('Successfully removed ./linux_packager/');
 		}
 		console.log('Creating linux packager...');
-		exec("cross-env NODE_ENV=prod webpack && electron-packager dist --overwrite --platform=" + spec['platform']['linux'] + " --arch=" + spec['arch']['64'] + " --prune=true --out=linux_packager --icon=builder/icons/linux/icon.png", (error) => {
+		exec("cross-env NODE_ENV=prod webpack && electron-packager dist --overwrite --platform=" + spec['platform']['linux'] + " --arch=" + spec['arch']['64'] + " --prune --asar --out=linux_packager --icon=builder/icons/linux/icon.png", (error) => {
 			if (!error) {
 				console.log('Successfully created packager at ./linux_packager/');
 			} else {
@@ -58,7 +58,7 @@ switch (process.env.NODE_OS) {
 			console.log('Successfully removed ./win_packager/');
 		}
 		console.log('Creating windows packager...');
-		exec("cross-env NODE_ENV=prod webpack && electron-packager dist --overwrite --platform=" + spec['platform']['win'] + " --arch=" + spec['arch']['64'] + " --prune=true --out=win_packager --icon=builder/icons/win/icon.ico", (error) => {
+		exec("cross-env NODE_ENV=prod webpack && electron-packager dist --overwrite --platform=" + spec['platform']['win'] + " --arch=" + spec['arch']['64'] + " --prune --asar --out=win_packager --icon=builder/icons/win/icon.ico", (error) => {
 			if (!error) {
 				console.log('Successfully created packager at ./win_packager/');
 			} else {
