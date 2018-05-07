@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
                 this.ports = ports
                 console.log('PORTS: ', ports)
 
-                var port = new SerialPort('COM3', {
+                var port = new SerialPort('COM2', {
                     baudRate: 9600
                 });
 

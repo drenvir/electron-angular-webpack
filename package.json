@@ -20,15 +20,18 @@
 	"license": "MIT",
 	"main": "electron.js",
 	"scripts": {
-		"install": "electron-rebuild",
+		"postinstall": "electron-rebuild -w serialport -f",
+		"gyp:rebuild": "cross-env HOME=~/.electron-gyp node-gyp rebuild --directory=node_modules/serialport/ --target=2.0.0 --arch=x64 --dist-url=https://atom.io/download/electron",
 		"dev": "tsc electron.ts --outDir . && cross-env NODE_ENV=dev webpack-dev-server --port=4200",
+		"build": "webpack",
 		"prod": "webpack && electron dist/electron.js",
 		"packager:win": "cross-env NODE_OS=win node builder/packager.js",
 		"packager:mac": "cross-env NODE_OS=mac node builder/packager.js",
 		"packager:linux": "cross-env NODE_OS=linux node builder/packager.js",
 		"installer:win": "npm run packager:win && cross-env NODE_OS=win node builder/installer.js",
 		"installer:mac": "npm run packager:mac && cross-env NODE_OS=mac node builder/installer.js",
-		"installer:linux": "npm run packager:linux && cross-env NODE_OS=linux node builder/installer.js"
+		"installer:linux": "npm run packager:linux && cross-env NODE_OS=linux node builder/installer.js",
+		"pack": "electron-packager dist --overwrite --prune --asar  --extra-resource=node_modules/serialport --platform=win32 --arch=x64 --icon=builder/icons/win/icon.ico --out=release"
 	},
 	"devDependencies": {
 		"clean-webpack-plugin": "^0.1.19",
@@ -37,12 +40,13 @@
 		"cross-env": "^5.1.4",
 		"css-loader": "^0.28.11",
 		"electron-packager": "^12.0.2",
+		"electron-rebuild": "^1.7.3",
 		"extract-loader": "^2.0.1",
 		"file-loader": "^1.1.11",
 		"html-loader": "^0.5.5",
 		"html-webpack-plugin": "^3.2.0",
-		"img-loader": "^3.0.0",
 		"imagemin": "^5.3.1",
+		"img-loader": "^3.0.0",
 		"lodash": "^4.17.10",
 		"node-sass": "^4.9.0",
 		"postcss-loader": "^2.1.5",
@@ -74,10 +78,12 @@
 		"@angular/platform-browser": "^6.0.0",
 		"@angular/platform-browser-dynamic": "^6.0.0",
 		"@angular/router": "^6.0.0",
+		"@types/serialport": "^6.0.1",
 		"angular-in-memory-web-api": "^0.6.0",
 		"core-js": "^2.5.5",
 		"electron": "^2.0.0",
 		"rxjs": "^6.1.0",
+		"serialport": "^6.2.0",
 		"zone.js": "^0.8.26"
 	}
 }

@@ -1,6 +1,8 @@
 # compiled output
 dist/*
+release
 electron.js
+lis-output.txt
 
 # dependencies
 node_modules/*

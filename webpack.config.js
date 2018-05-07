@@ -126,6 +126,11 @@ let webpackConfig = {
                 parser: { 
                     system: true 
                 }
+            },
+            // for native node.js modules
+            {
+                test: /\.node$/,
+                loader: 'native-ext-loader'
             }
         ]
     },
@@ -155,7 +160,8 @@ let webpackConfig = {
         new CopyWebpackPlugin(['./package.json']),
     ],
     externals: {
-        serialport: "require('serialport')"
+        serialport: 'require("serialport")',
+        fs: 'require("fs")',
     }
 };
 
