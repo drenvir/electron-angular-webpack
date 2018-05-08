@@ -58,7 +58,7 @@ switch (process.env.NODE_OS) {
 			console.log('Successfully removed ./win_packager/');
 		}
 		console.log('Creating windows packager...');
-		exec("cross-env NODE_ENV=prod webpack && electron-packager dist --overwrite --platform=" + spec['platform']['win'] + " --arch=" + spec['arch']['64'] + " --prune --asar --out=win_packager --icon=builder/icons/win/icon.ico --extra-resource=node_modules/serialport", (error) => {
+		exec("cross-env NODE_ENV=prod webpack && electron-packager dist --overwrite --platform=" + spec['platform']['win'] + " --arch=" + spec['arch']['64'] + " --prune --asar --out=win_packager --icon=builder/icons/win/icon.ico", (error) => {
 			if (!error) {
 				console.log('Successfully created packager at ./win_packager/');
 			} else {

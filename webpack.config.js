@@ -5,7 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const exec = require('child_process').exec;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyNpmModulesPlugin = require('./builder/copy-node-modules-plugin');
 
 // Html-webpack-plugin configuration
 const indexConfig = {
@@ -158,6 +159,10 @@ let webpackConfig = {
         new HtmlWebpackPlugin(indexConfig),
         new Webpack.ContextReplacementPlugin(/angular([\\\/])core([\\\/])/, path.resolve(__dirname, './src')),
         new CopyWebpackPlugin(['./package.json']),
+        new CopyNpmModulesPlugin({
+            srcDir: './',
+            dstDir: './dist'
+        })
     ],
     externals: {
         serialport: 'require("serialport")',

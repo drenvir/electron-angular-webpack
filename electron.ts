@@ -38,10 +38,10 @@ function createWindow() {
 		mainWindow.loadURL('http://127.0.0.1:4200');
 	}
 
-	// if(dev){
+	if(dev){
         // Open the DevTools.
        	mainWindow.webContents.openDevTools();
-	// }
+	}
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function() {
