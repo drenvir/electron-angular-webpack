@@ -158,11 +158,6 @@ let webpackConfig = {
     plugins: [
         new HtmlWebpackPlugin(indexConfig),
         new Webpack.ContextReplacementPlugin(/angular([\\\/])core([\\\/])/, path.resolve(__dirname, './src')),
-        new CopyWebpackPlugin(['./package.json']),
-        new CopyNpmModulesPlugin({
-            srcDir: './',
-            dstDir: './dist'
-        })
     ],
     externals: {
         serialport: 'require("serialport")',
@@ -174,6 +169,11 @@ let webpackConfig = {
 if (!dev) {
     webpackConfig.plugins.push(new CleanWebpackPlugin(pathsToClean));
     webpackConfig.plugins.push(new UglifyJsPlugin());
+    webpackConfig.plugins.push(new CopyWebpackPlugin(['./package.json']));
+    webpackConfig.plugins.push(new CopyNpmModulesPlugin({
+        srcDir: './',
+        dstDir: './dist'
+    }));
 }
 
 // Export the config

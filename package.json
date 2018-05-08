@@ -34,6 +34,20 @@
 		"pack": "electron-packager dist --overwrite --prune --asar --platform=win32 --arch=x64 --icon=builder/icons/win/icon.ico --out=release"
 	},
 	"devDependencies": {
+		"@angular/common": "^6.0.0",
+		"@angular/compiler": "^6.0.0",
+		"@angular/core": "^6.0.0",
+		"@angular/forms": "^6.0.0",
+		"@angular/http": "^6.0.0",
+		"@angular/platform-browser": "^6.0.0",
+		"@angular/platform-browser-dynamic": "^6.0.0",
+		"@angular/router": "^6.0.0",
+		"@types/serialport": "^6.0.1",
+		"angular-in-memory-web-api": "^0.6.0",
+		"core-js": "^2.5.5",
+		"electron": "^2.0.0",
+		"rxjs": "^6.1.0",
+		"zone.js": "^0.8.26",
 		"clean-webpack-plugin": "^0.1.19",
 		"concurrently": "^3.5.1",
 		"copy-node-modules": "^1.0.4",
@@ -71,20 +85,6 @@
 		"electron-winstaller": "^2.6.4"
 	},
 	"dependencies": {
-		"@angular/common": "^6.0.0",
-		"@angular/compiler": "^6.0.0",
-		"@angular/core": "^6.0.0",
-		"@angular/forms": "^6.0.0",
-		"@angular/http": "^6.0.0",
-		"@angular/platform-browser": "^6.0.0",
-		"@angular/platform-browser-dynamic": "^6.0.0",
-		"@angular/router": "^6.0.0",
-		"@types/serialport": "^6.0.1",
-		"angular-in-memory-web-api": "^0.6.0",
-		"core-js": "^2.5.5",
-		"electron": "^2.0.0",
-		"rxjs": "^6.1.0",
-		"serialport": "^6.2.0",
-		"zone.js": "^0.8.26"
+		"serialport": "^6.2.0"
 	}
 }
