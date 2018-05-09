@@ -53,6 +53,12 @@ export class AppComponent implements OnInit {
     openFile() {
         var dialog = this.electronService.remote.dialog;
         var mainWindow = this.electronService.remote.getCurrentWindow();
-        dialog.showOpenDialog(mainWindow, {properties: ['openFile', 'openDirectory', 'multiSelections']})
+        dialog.showOpenDialog(mainWindow, {
+            properties: ['openDirectory'],
+            defaultPath: this.electronService.remote.app.getPath('documents'),
+            message: 'Mở đường dẫn cấu hình file XML.'
+        }, (filePaths) => {
+            console.log('Path: ', filePaths)
+        })
     }
 }
