@@ -76,16 +76,11 @@ var menu = Menu.buildFromTemplate([{
 		label: 'Thoát',
 		// accelerator: 'CmdOrCtrl+Q',
 		click: function () {
-			var confirm = electron.dialog.showMessageBox(new BrowserWindow({
-				show: false,
-				modal: true,
-				alwaysOnTop: true
-			}), {
+			var confirm = electron.dialog.showMessageBox(mainWindow, {
 				type: 'question',
 				buttons: ['Không', 'Có'],
 				title: 'Xác nhận',
-				message: 'Bạn chắc chắn thoát ứng dụng không?',
-				
+				message: 'Bạn chắc chắn thoát ứng dụng không?'
 			})
 			// confirm 'yes'
 			if (confirm === 1) {
