@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ElectronService } from 'ngx-electron';
 import * as SerialPort from "serialport";
 import * as fs from "fs";
 
@@ -9,6 +10,7 @@ import * as fs from "fs";
 })
 export class AppComponent implements OnInit {
 
+    electronService: ElectronService = new ElectronService();
     ports: Array<String> = [];
     data: String = '';
 
@@ -48,4 +50,9 @@ export class AppComponent implements OnInit {
             })
     }
 
+    openFile() {
+        var dialog = this.electronService.remote.dialog;
+        var mainWindow = this.electronService.remote.getCurrentWindow();
+        dialog.showOpenDialog(mainWindow, {properties: ['openFile', 'openDirectory', 'multiSelections']})
+    }
 }

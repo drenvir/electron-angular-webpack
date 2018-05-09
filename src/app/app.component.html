@@ -1,6 +1,9 @@
 <div class="head">
     <img src="../assets/images/logo.png" alt="Logo">
     <h1>It works!</h1>
+    <div>
+        <button (click)="openFile()">Open file</button>
+    </div>
     <div class="tag-list">
         <a *ngFor="let port of ports" class="tag-default tag-pill">
            {{ port.comName }}

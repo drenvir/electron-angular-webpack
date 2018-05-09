@@ -1,6 +1,7 @@
 import electron = require('electron');
 // Module to control application life
 const app = electron.app;
+const Menu = electron.Menu;
 
 // This should be placed at top of main.js to handle setup events quickly
 if (handleSquirrelEvent(app)) {
@@ -24,7 +25,10 @@ let dev = args.some(arg => arg === '--dev');
 
 function createWindow() {
 	// Create the browser window.
-	mainWindow = new BrowserWindow({ width: 1024, height: 720 });
+	mainWindow = new BrowserWindow({
+		width: 1024,
+		height: 720
+	});
 	mainWindow.setMenu(null);
 
 	if (!dev) {
@@ -38,19 +42,60 @@ function createWindow() {
 		mainWindow.loadURL('http://127.0.0.1:4200');
 	}
 
-	if(dev){
-        // Open the DevTools.
-       	mainWindow.webContents.openDevTools();
+	if (dev) {
+		// Open the DevTools.
+		mainWindow.webContents.openDevTools();
 	}
 
-	// Emitted when the window is closed.
-	mainWindow.on('closed', function() {
-		// Dereference the window object, usually you would store windows
-		// in an array if your app supports multi windows, this is the time
-		// when you should delete the corresponding element.
-		mainWindow = null;
+	mainWindow.on('close', (e) => {
+		if (!force_quit) {
+			e.preventDefault();
+			mainWindow.minimize();
+		}
 	})
+
+
+	// App menu
+	Menu.setApplicationMenu(menu);
 }
+
+var force_quit = false;
+
+var menu = Menu.buildFromTemplate([{
+	label: 'File',
+	submenu: [{
+		label: 'Cấu hình',
+		click() {
+			console.log('Cấu hình ...')
+		}
+	}, {
+		label: 'Thông tin'
+	}, {
+		type: 'separator'
+	}, {
+		label: 'Thoát',
+		// accelerator: 'CmdOrCtrl+Q',
+		click: function () {
+			var confirm = electron.dialog.showMessageBox(new BrowserWindow({
+				show: false,
+				modal: true,
+				alwaysOnTop: true
+			}), {
+				type: 'question',
+				buttons: ['Không', 'Có'],
+				title: 'Xác nhận',
+				message: 'Bạn chắc chắn thoát ứng dụng không?',
+				
+			})
+			// confirm 'yes'
+			if (confirm === 1) {
+				force_quit = true;
+				app.quit();
+			}
+		}
+	}]
+}]);
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -58,7 +103,7 @@ function createWindow() {
 app.on('ready', createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function() {
+app.on('window-all-closed', function () {
 	// On OS X it is common for applications and their menu bar
 	// to stay active until the user quits explicitly with Cmd + Q
 	if (process.platform !== 'darwin') {
@@ -66,11 +111,27 @@ app.on('window-all-closed', function() {
 	}
 });
 
-app.on('activate', function() {
+// This is another place to handle events after all windows are closed
+app.on('will-quit', function () {
+	// This is a good place to add tests insuring the app is still
+	// responsive and all windows are closed.
+	console.log("will-quit");
+	mainWindow = null;
+});
+
+
+// app.on('activate', function () {
+// 	mainWindow.show();
+// });
+
+
+app.on('activate', function () {
 	// On OS X it's common to re-create a window in the app when the
 	// dock icon is clicked and there are no other windows open.
 	if (mainWindow === null) {
 		createWindow();
+	} else {
+		mainWindow.show();
 	}
 });
 
@@ -87,7 +148,7 @@ function handleSquirrelEvent(app) {
 	const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
 	const exeName = path.basename(process.execPath);
 
-	const spawn = function(command, args) {
+	const spawn = function (command, args) {
 		let spawnedProcess, error;
 
 		try {
@@ -99,7 +160,7 @@ function handleSquirrelEvent(app) {
 		return spawnedProcess;
 	};
 
-	const spawnUpdate = function(args) {
+	const spawnUpdate = function (args) {
 		return spawn(updateDotExe, args);
 	};
 
