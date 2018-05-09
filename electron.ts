@@ -9,6 +9,17 @@ if (handleSquirrelEvent(app)) {
 	app.quit();
 }
 
+/* Single Instance Check */
+var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
+	// Someone tried to run a second instance, we should focus our window.
+	if (mainWindow) {
+		if (mainWindow.isMinimized()) mainWindow.restore();
+		mainWindow.focus();
+	}
+});
+
+/* End Single Instance Check */
+
 import path = require('path');
 import url = require('url');
 
@@ -54,7 +65,6 @@ function createWindow() {
 		}
 	})
 
-
 	// App menu
 	Menu.setApplicationMenu(menu);
 }
@@ -92,43 +102,47 @@ var menu = Menu.buildFromTemplate([{
 }]);
 
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+if (shouldQuit) {
+	app.quit();
+} else {
+	// This method will be called when Electron has finished
+	// initialization and is ready to create browser windows.
+	// Some APIs can only be used after this event occurs.
+	app.on('ready', createWindow);
 
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
-	// On OS X it is common for applications and their menu bar
-	// to stay active until the user quits explicitly with Cmd + Q
-	if (process.platform !== 'darwin') {
-		app.quit();
-	}
-});
+	// Quit when all windows are closed.
+	app.on('window-all-closed', function () {
+		// On OS X it is common for applications and their menu bar
+		// to stay active until the user quits explicitly with Cmd + Q
+		if (process.platform !== 'darwin') {
+			app.quit();
+		}
+	});
 
-// This is another place to handle events after all windows are closed
-app.on('will-quit', function () {
-	// This is a good place to add tests insuring the app is still
-	// responsive and all windows are closed.
-	console.log("will-quit");
-	mainWindow = null;
-});
-
-
-// app.on('activate', function () {
-// 	mainWindow.show();
-// });
+	// This is another place to handle events after all windows are closed
+	app.on('will-quit', function () {
+		// This is a good place to add tests insuring the app is still
+		// responsive and all windows are closed.
+		console.log("will-quit");
+		mainWindow = null;
+	});
 
 
-app.on('activate', function () {
-	// On OS X it's common to re-create a window in the app when the
-	// dock icon is clicked and there are no other windows open.
-	if (mainWindow === null) {
-		createWindow();
-	} else {
-		mainWindow.show();
-	}
-});
+	// app.on('activate', function () {
+	// 	mainWindow.show();
+	// });
+
+
+	app.on('activate', function () {
+		// On OS X it's common to re-create a window in the app when the
+		// dock icon is clicked and there are no other windows open.
+		if (mainWindow === null) {
+			createWindow();
+		} else {
+			mainWindow.show();
+		}
+	});
+}
 
 function handleSquirrelEvent(app) {
 	if (process.argv.length === 1) {

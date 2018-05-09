@@ -57,6 +57,13 @@ cd electron-angular-webpack
 npm install
 ```
 
+### Steps to create installer
+
+1. Install dependencies: `npm install`
+2. Rebuild native module (if present): `npm run gyp:rebuild`
+3. Build application: `npm run build`
+4. Create installer: `npm run installer:win`
+
 ## <a name="commands"></a>Commands
 |Command|Description|
 |--|--|
