@@ -1,6 +1,6 @@
 {
 	"name": "electron-angular-webpack",
-	"version": "1.0.0",
+	"version": "3.0.0-alpha-1",
 	"description": "A simple kit for Electron, Angular 6 and Webpack 4 including a live reload system for Angular.",
 	"repository": "https://github.com/lbassin/electron-angular-webpack",
 	"homepage": "https: //github.com/lbassin/electron-angular-webpack#readme",
@@ -16,7 +16,7 @@
 		"typescript",
 		"sass"
 	],
-	"author": "BASSIN Laurent & MARQUET Maxime",
+	"author": "Vunb @2018 ERM.,JSC",
 	"license": "MIT",
 	"main": "electron.js",
 	"scripts": {

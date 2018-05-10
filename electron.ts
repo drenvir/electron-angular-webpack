@@ -59,7 +59,7 @@ function createWindow() {
 	}
 
 	mainWindow.on('close', (e) => {
-		if (!force_quit) {
+		if (!forceQuit) {
 			e.preventDefault();
 			mainWindow.minimize();
 		}
@@ -69,17 +69,20 @@ function createWindow() {
 	Menu.setApplicationMenu(menu);
 }
 
-var force_quit = false;
+var forceQuit = false;
 
 var menu = Menu.buildFromTemplate([{
 	label: 'File',
 	submenu: [{
 		label: 'Cấu hình',
 		click() {
-			console.log('Cấu hình ...')
+			electron.dialog.showMessageBox(mainWindow, {
+				type: 'info',
+				buttons: ['Đồng ý'],
+				title: 'Cấu hình',
+				message: 'Trang cấu hình: Lis ' + electron.app.getVersion()
+			})
 		}
-	}, {
-		label: 'Thông tin'
 	}, {
 		type: 'separator'
 	}, {
@@ -94,9 +97,22 @@ var menu = Menu.buildFromTemplate([{
 			})
 			// confirm 'yes'
 			if (confirm === 1) {
-				force_quit = true;
+				forceQuit = true;
 				app.quit();
 			}
+		}
+	}]
+}, {
+	label: 'Help',
+	submenu: [{
+		label: 'Thông tin',
+		click() {
+			electron.dialog.showMessageBox(mainWindow, {
+				type: 'info',
+				buttons: ['Đồng ý'],
+				title: 'Thông tin',
+				message: 'ERM - Lis ' + electron.app.getVersion()
+			})
 		}
 	}]
 }]);
@@ -126,12 +142,6 @@ if (shouldQuit) {
 		console.log("will-quit");
 		mainWindow = null;
 	});
-
-
-	// app.on('activate', function () {
-	// 	mainWindow.show();
-	// });
-
 
 	app.on('activate', function () {
 		// On OS X it's common to re-create a window in the app when the
